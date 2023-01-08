@@ -1,0 +1,27 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: SampleGrpcService
+spec:
+  template:
+    metadata:
+      name: SampleGrpcService_1
+      annotations:
+        # Target 10 in-flight-requests per pod.
+        #autoscaling.knative.dev/target: "1"
+        # container-concurrency-target-percentage: "80"
+        autoscaling.knative.dev/targetUtilizationPercentage: "100"
+        #autoscaling.knative.dev/metric: "concurrency"
+        # autoscaling.knative.dev/initialScale: "0"
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "100"
+        autoscaling.knative.dev/scaleDownDelay: "3m"
+    spec:
+      containerConcurrency: 1      
+      containers:
+      - name: SampleGrpcService_container
+        image: SampleGrpcService:latest        
+        imagePullPolicy: Always       
+        ports:
+          - name: h2c
+            containerPort: 40056

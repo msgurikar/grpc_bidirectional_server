@@ -1,0 +1,23 @@
+FROM ubuntu:20.04 AS builder
+ARG DEBIAN_FRONTEND=noninteractive
+
+ARG PACKAGES_TO_INSTALL="git cmake ninja-build build-essential pkg-config curl tar zip unzip wget"
+
+RUN set -ex;                            \
+	apt -y update;                       \
+    apt -y dist-upgrade;                 \    
+    apt -y install $PACKAGES_TO_INSTALL; \
+exit 0
+
+ENV VCPKG_ROOT="/usr/src/vcpkg"
+WORKDIR $VCPKG_ROOT
+
+RUN git clone --recursive --jobs=$(nproc) https://github.com/Microsoft/vcpkg $VCPKG_ROOT; \	
+	git checkout tags/2021.06.31;														  \
+	./bootstrap-vcpkg.sh;								     		 					  \	
+	./vcpkg install	grpc:x64-linux;													      \
+	./vcpkg install	protobuf:x64-linux;													  \
+	./vcpkg install	protobuf[zlib]:x64-linux;											\	 											  
+exit 0
+
+WORKDIR /root

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package SampleService;
+
+enum ResponseStatus {
+  SUCCESS = 0;
+  IN_PROGRESS = 1;
+  FAILED = 2;
+  CANCELLED = 4;
+}
+
+message Request{      
+  string input_msg = 1;
+  bool request_cancel = 2;
+}
+
+
+message Response{
+  ResponseStatus Status = 1;
+  string Message = 2;
+  double ProgressPercentage = 3;
+}
