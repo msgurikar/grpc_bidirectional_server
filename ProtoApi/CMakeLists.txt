@@ -12,7 +12,7 @@ find_program(_GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin
 set(API_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../ProtoApi")
 set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
-file(MAKE_DIRECTORY ${API_DIR}/gen)
+file(MAKE_DIRECTORY ${API_DIR}/gen/ProtoApi)
 
 set(PROTO_FILES ${CMAKE_CURRENT_SOURCE_DIR}/protobuf/Sample.proto)
 
