@@ -25,3 +25,8 @@ spec:
         ports:
           - name: h2c
             containerPort: 40056
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
