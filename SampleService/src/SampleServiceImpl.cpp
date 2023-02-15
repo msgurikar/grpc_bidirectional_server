@@ -85,8 +85,12 @@ Status SampleServiceImpl::Compute(
         double time_taken_secs = std::chrono::duration<double>(end_proc - begin_proc).count();        
         cout << "Process completed and took " << time_taken_secs << "seconds" <<endl;
         cout << "--------------------------- End of request-----------------" << endl;
+        auto pod_name = std::string(std::getenv("POD_NAME"));
+        cout << "Pod name is" << pod_name << endl;
+        response.set_pod_name(pod_name);
         response.set_status(ResponseStatus::SUCCESS); 
         response.set_message("Completed.");
+        
         stream->WriteLast(response, ::grpc::WriteOptions());
         return Status::OK;
     }
@@ -97,7 +101,7 @@ Status SampleServiceImpl::Compute(
 }
 
 void SampleServiceImpl::ProcessRequest(Request& request)
-{
+{   
     cout << "Input message is " << request.input_msg() << endl;
     std::this_thread::sleep_for(std::chrono::seconds(5));
     m_process_completed = true;

@@ -19,4 +19,6 @@ message Response{
   ResponseStatus Status = 1;
   string Message = 2;
   double ProgressPercentage = 3;
+  string Pod_Name = 4;
+  string Pod_Status = 5;
 }
