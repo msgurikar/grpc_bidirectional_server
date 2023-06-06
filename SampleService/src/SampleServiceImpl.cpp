@@ -103,7 +103,7 @@ Status SampleServiceImpl::Compute(
 void SampleServiceImpl::ProcessRequest(Request& request)
 {   
     cout << "Input message is " << request.input_msg() << endl;
-    std::this_thread::sleep_for(std::chrono::seconds(5));
+    std::this_thread::sleep_for(std::chrono::minutes(5));
     m_process_completed = true;
     return;
 }
